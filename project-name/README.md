@@ -1,46 +1,119 @@
-# Getting Started with Create React App
+# TypeScript
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 숫자
 
-## Available Scripts
+```
+let age:number = 30;
+<!-- 숫자 배열 -->
+let a1:number[] = [1,2,3];
+let a2:Array<number> = [1,2,3];
 
-In the project directory, you can run:
+```
 
-### `npm start`
+## 문자열
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+let word:string = 'abc';
+<!-- 문자 배열 -->
+let week1:string[] = ['mon', 'tue', 'wed'];
+let week2:Array<string> = ['mon', 'tue', 'wed'];
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
 
-### `npm test`
+## 불리언(Boolean)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+let isTrue:boolean = true;
 
-### `npm run build`
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 튜플(Tuple)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 인덱스별로 타입이 다를 때 사용
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+let t : [string, number];
+t = ['ABC', 123];
+t = [123, 'ABC']; // 에러
+t[0].toLowerCase();
+t[1].toLowerCase(); // toLowerCase()는 number에 사용할 수 없으므로 에러
 
-### `npm run eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## void
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 아무것도 반환하지 않는 함수에 사용하는 타입
+- void가 지정된 함수는 undefined 반환
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+function sayHello():void{
+    console.log('hello')
+}
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
 
-## Learn More
+## never
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- 절대 발생하지 않는 값의 타입을 표현하는데 사용
+- 에러를 반환하거나 무한 루프인 경우의 타입
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+<!-- error -->
+function showError():never{
+    throw new Error();
+}
+<!-- 무한 루프 -->
+function infLoop(): never{
+    while(true){
+        ...
+    }
+}
+
+```
+
+## enum
+
+- 비슷한 값들 끼리 묶어줌
+- 특정값만 입력하도록 강제할 수 있음
+
+**숫자 입력(양방향 맵핑)**
+
+```
+enum Color{
+    Blue,
+    Green = 3,
+    Red
+}
+console.log(Color.Blue); // 0
+console.log(Color.Green); // 3
+console.log(Color.Red); // 4
+console.log(Color[3]); // Green
+
+```
+
+**문자열 입력(단방향 맵핑)**
+
+```
+enum Color{
+    Blue = 'B',
+    Green = 'G',
+    Red = 'R'
+}
+let myColor:Color;
+myColor = Color.Red;
+<!-- 컴파일 되는 형태 -->
+const Color = {
+    Blue: 'B',
+    Green: 'G',
+    Red: 'R'
+}
+
+```
+
+## null, undefined
+
+```
+let a:null = null;
+let b:undefined = undefined;
+
+```
